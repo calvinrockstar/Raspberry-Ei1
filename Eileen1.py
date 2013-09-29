@@ -31,10 +31,26 @@ def receiving(ser):
 		
             		if startVideo > 5:	
 	    				isPlaying = 1
+					
 					subprocess.call("bash /home/pi/Desktop/Sensor/videoplayer1.sh", shell=True)
+					subprocess.call("bash /home/pi/Desktop/Sensor/videoplayer2.sh", shell=True)
+					subprocess.call("bash /home/pi/Desktop/Sensor/videoDie1.sh", shell=True)
+					#time.sleep(16)
+					
+					
+					#time.sleep(16)
+					#psubprocess.call("screen -d vid2")
+					#subprocess.call(['omxplayer','/home/pi/Desktop/Sensor/vid1.mov'])
 					#ser.close()
-					time.sleep(10)
- 					subprocess.call("pkill screen", shell=True)					
+					#subprocess.call("screen -X -S vid1 quit")
+					#time.sleep(5)
+					#subprocess.call(['omxplayer','/home/pi/Desktop/Sensor/vid1.mov'])
+					#subprocess.call("screen -X -S vid1 quit", shell=True)
+					#subprocess.call("bash /home/pi/Desktop/Sensor/videoplayer2.sh", shell=True)
+					#time.sleep(20)
+ 					#subprocess.call("pkill screen", shell=True)
+					#subprocess.call("killall omxplayer.bin", shell=True)
+					#subprocess.call(['omxplayer','/home/pi/Desktop/Sensor/vid2.mov'])					
 					print("Start video")
 
 receiving(ser)
