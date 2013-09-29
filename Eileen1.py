@@ -1,15 +1,18 @@
 import subprocess
 import time
+import uinput
+
 from serial import Serial
 from subprocess import PIPE, STDOUT
 
 ser = Serial('/dev/ttyACM0', 9600, timeout=1)
 isPlaying = 0
-
+device = uinput.Device([uinput.KEY_P])
 
 def receiving(ser):
     global last_received
     global startVideo
+    
 	
     startVideo = 0
     buffer = ''
@@ -32,10 +35,14 @@ def receiving(ser):
             		if startVideo > 5:	
 	    				isPlaying = 1
 					
-					subprocess.call("bash /home/pi/Desktop/Sensor/videoplayer1.sh", shell=True)
-					subprocess.call("bash /home/pi/Desktop/Sensor/videoplayer2.sh", shell=True)
-					subprocess.call("bash /home/pi/Desktop/Sensor/videoDie1.sh", shell=True)
-					#time.sleep(16)
+					#subprocess.call("bash /home/pi/Desktop/Sensor/videoplayer1.sh", shell=True)
+					subprocess.call(['omxplayer','/home/pi/Desktop/Sensor/vid1.mov'])
+					
+					#subprocess.call("bash /home/pi/Desktop/Sensor/videoplayer2.sh", shell=True)
+					#subprocess.call("bash /home/pi/Desktop/Sensor/videoDie1.sh", shell=True)
+					time.sleep(2)
+					device.emit_click(uinput.KEY_P)
+					
 					
 					
 					#time.sleep(16)
