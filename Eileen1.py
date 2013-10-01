@@ -61,3 +61,4 @@ def receiving(ser):
 					print("Start video")
 
 receiving(ser)
+

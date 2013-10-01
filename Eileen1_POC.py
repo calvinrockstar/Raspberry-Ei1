@@ -1,6 +1,7 @@
 import subprocess
 import time
 import pexpect
+#import vidtest
 
 from serial import Serial
 from subprocess import PIPE, STDOUT
@@ -8,11 +9,18 @@ from subprocess import PIPE, STDOUT
 
 ser = Serial('/dev/ttyACM0', 9600, timeout=1)
 isPlaying = 0
-
+Movies = [['vid1.mov',15],['vid2.mov',15],['vid1.mov',15]]
+ 
+def PlayList(Movies):
+	for movie in Movies:
+		p = subprocess.Popen(["omxplayer", movie[0]])
+		time.sleep(movie[1])
+		#PlayList(Movies)
 
 def receiving(ser):
     global last_received
     global startVideo
+   
 	
     startVideo = 0
     buffer = ''
@@ -32,16 +40,18 @@ def receiving(ser):
 			startVideo = startVideo + 1
 			print(startVideo)
 		
-            		if startVideo > 2:	
+            		if startVideo > 3:	
 	    				isPlaying = 1
-					command = 'omxplayer -r -o local /home/pi/Desktop/Sensor/vid1.mov'
-					child = pexpect.spawn(command)
+	    				PlayList(Movies)
+	    				#subprocess.Popen("/home/pi/Desktop/Sensor/vidtest.py 1",shell=True)
+					#command = 'omxplayer -r -o local /home/pi/Desktop/Sensor/vid1.mov'
+					#child = pexpect.spawn(command)
 
 					#subprocess.call(['omxplayer','/home/pi/Desktop/Sensor/vid1.mov'])
 					#pexpect.run('p')
 					#child = pexpect.spawn (['omxplayer','/home/pi/Desktop/Sensor/vid1.mov'])
-					child.expect('p')
-					child.sendline('p')	
+					#child.expect('p')
+					#child.sendline('p')	
 					
 					#subprocess.call("bash /home/pi/Desktop/Sensor/videoplayer1.sh", shell=True)
 					#time.sleep(16)	
@@ -50,3 +60,5 @@ def receiving(ser):
 					#print("Start video")
 
 receiving(ser)
+
+
